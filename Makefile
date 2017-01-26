@@ -1,9 +1,9 @@
-KUBE_VERSION ?= 1.3.3
+KUBE_VERSION ?= 1.4.0
 VERSION ?= 0.9.0
-REPOSITORY ?= mumoshu/kube-spot-termination-notice-handler
+REPOSITORY ?= matroid/kube-spot-termination-notice-handler
 TAG ?= $(KUBE_VERSION)-$(VERSION)
 IMAGE ?= $(REPOSITORY):$(TAG)
-ALIAS ?= $(REPOSITORY):$(KUBE_VERSION)
+ALIAS ?= 840259429537.dkr.ecr.us-west-2.amazonaws.com/matroid:kube-spot-termination-notice-handler-v$(KUBE_VERSION)
 BUILD_ROOT ?= build/$(TAG)
 DOCKERFILE ?= $(BUILD_ROOT)/Dockerfile
 ENTRYPOINT ?= $(BUILD_ROOT)/entrypoint.sh
@@ -32,7 +32,7 @@ build: $(DOCKERFILE) $(ENTRYPOINT)
 	cd $(BUILD_ROOT) && docker build -t $(IMAGE) . && docker tag $(IMAGE) $(ALIAS)
 
 publish:
-	docker push $(IMAGE) && docker push $(ALIAS)
+	docker push $(ALIAS)
 
 clean:
 	rm -Rf $(BUILD_ROOT)
